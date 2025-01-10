@@ -1,0 +1,167 @@
+
+skeleton.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Back-Hair
+  rotate: false
+  xy: 4, 138
+  size: 277, 357
+  orig: 350, 400
+  offset: 43, 28
+  index: -1
+Body
+  rotate: false
+  xy: 743, 345
+  size: 150, 150
+  orig: 150, 200
+  offset: 0, 25
+  index: -1
+Eyes-White-Space
+  rotate: false
+  xy: 285, 91
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+Eyes_2
+  rotate: false
+  xy: 439, 91
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+Eyes_A
+  rotate: false
+  xy: 593, 141
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+Eyes_B
+  rotate: false
+  xy: 747, 191
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+Hair
+  rotate: false
+  xy: 285, 245
+  size: 250, 250
+  orig: 250, 250
+  offset: 0, 0
+  index: -1
+Head
+  rotate: false
+  xy: 539, 295
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+L-Hand-A
+  rotate: false
+  xy: 593, 62
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+L-Hand-B
+  rotate: false
+  xy: 901, 4
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+L-Head-Wing
+  rotate: false
+  xy: 4, 34
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+L-Leg-A
+  rotate: false
+  xy: 897, 395
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+L-Leg-B
+  rotate: false
+  xy: 108, 34
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+L_Eyebrow
+  rotate: false
+  xy: 212, 84
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Lens
+  rotate: false
+  xy: 747, 37
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+Mount
+  rotate: false
+  xy: 672, 87
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+Mount_2
+  rotate: false
+  xy: 424, 37
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+R-Eyebrow
+  rotate: false
+  xy: 212, 30
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+R-Hand-A
+  rotate: false
+  xy: 266, 12
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+R-Hand-B
+  rotate: false
+  xy: 345, 12
+  size: 75, 75
+  orig: 75, 75
+  offset: 0, 0
+  index: -1
+R-Head-Wing
+  rotate: false
+  xy: 901, 291
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+R-Leg-A
+  rotate: false
+  xy: 901, 187
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+R-Leg-B
+  rotate: false
+  xy: 901, 83
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
