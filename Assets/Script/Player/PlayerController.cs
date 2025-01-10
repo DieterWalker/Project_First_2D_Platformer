@@ -6,7 +6,7 @@ using Spine.Unity;
 
 public class PlayerController : MonoBehaviour
 {
-    //
+    // Ok
     private float horizontalInput;
     private int jumpCount;
     [SerializeField] private int setUpJumpCount = 2;
