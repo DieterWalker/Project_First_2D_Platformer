@@ -7,7 +7,7 @@ using Spine.Unity;
 public class PlayerController : MonoBehaviour
 {
     // Ok
-    private float horizontalInput;
+    public float horizontalInput;
     private int jumpCount;
     [SerializeField] private int setUpJumpCount = 2;
     [SerializeField] private float moveSpeed = 1f;
@@ -21,110 +21,123 @@ public class PlayerController : MonoBehaviour
     [SerializeField, ReadOnly] private SkeletonAnimation playerAnimation;
     
 
-#region Unity Method
+    #region Unity Method
 
-    private void Awake(){
-        rb = GetComponent<Rigidbody2D>();
-        capsuleCollider = GetComponent<CapsuleCollider2D>();
-        playerAnimation = GetComponentInChildren<SkeletonAnimation>();
-    }
-
-    private void Start(){
-        rb.gravityScale = setUpGravity;
-        jumpCount = setUpJumpCount;
-    }
-
-    private void Update(){
-        CheckJumpCount();
-        horizontalInput = Input.GetAxis("Horizontal");
-
-        // Flip player
-        if (horizontalInput > 0.01f) 
-            transform.localScale = Vector3.one;
-        else if (horizontalInput < -0.01f)
-            transform.localScale = new Vector3 (-1, 1, 1);
-
-        if (wallJumpCoolDown < 0.2f ) {
-            rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
-
-            if (onWall() && !isGrounded()){
-                rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(-2f, rb.velocity.y)); // Giảm tốc độ rơi nhẹ
-            } else
-                rb.gravityScale = setUpGravity;
-
-            if(Input.GetKeyDown(KeyCode.Space) && jumpCount > 0){
-                Jump();
-                wallJumpCoolDown = 0;
-            }
-        } else {
-            wallJumpCoolDown += Time.deltaTime;
+        private void Awake(){
+            rb = GetComponent<Rigidbody2D>();
+            capsuleCollider = GetComponent<CapsuleCollider2D>();
+            playerAnimation = GetComponentInChildren<SkeletonAnimation>();
         }
 
-        print(jumpCount);
-        
-        if (isGrounded()) {
-            if (Mathf.Abs(horizontalInput) > 0.01f) {
-                PlayAnimation(0, "Run", true); // Đang chạy
-            } else {
-                PlayAnimation(0, "Idle", true); // Đứng yên
-            }
-        } else if (rb.velocity.y > 0.1f) {
-            PlayAnimation(0, "Jump", false); // Đang nhảy lên
-        } else if (rb.velocity.y < -0.1f) {
-            PlayAnimation(0, "Fall", false);
-        } else if (onWall()){
-            PlayAnimation(0, "Climb", true);
-        }
-    }
-#endregion
-
-#region Jump Logic
-    private void Jump(){
-        if (isGrounded() || jumpCount > 0){
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
-            jumpCount--;
-        } else if(onWall() && !isGrounded()){
-            if (horizontalInput == 0){
-                rb.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 25, 0);
-                transform.localScale = new Vector3(-MathF.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-            } else {
-                rb.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 25);
-            }
-            wallJumpCoolDown = 0;
-        }     
-    }
-
-    private void CheckJumpCount(){
-        if (isGrounded() || onWall()){
+        private void Start(){
+            rb.gravityScale = setUpGravity;
             jumpCount = setUpJumpCount;
         }
-    }
-    // private void OnCollisionEnter2D (Collision2D collision){
 
-    // }
+        private void Update(){
+            CheckJumpCount();
 
-    private bool isGrounded(){
-        RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-        return raycastHit.collider != null;
-    }
+            if (playerAnimation.AnimationName == "Shoot") return;
 
-    private bool onWall(){
-        RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
-        return raycastHit.collider != null;
-    }
+            horizontalInput = Input.GetAxis("Horizontal");
 
-#endregion
+            // Flip player
+            if (horizontalInput > 0.01f) 
+                transform.localScale = Vector3.one;
+            else if (horizontalInput < -0.01f)
+                transform.localScale = new Vector3 (-1, 1, 1);
 
-#region Spine Controller
-    private void PlayAnimation(int track, string name, bool loop){
-        if (playerAnimation.AnimationName != name){
-            playerAnimation.state.SetAnimation(track, name, loop);
+            if (wallJumpCoolDown < 0.2f ) {
+                rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
+
+                if (onWall() && !isGrounded()){
+                    //rb.gravityScale = 0;
+                    //rb.velocity = Vector2.zero;
+                    rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(-10f, rb.velocity.y)); // Giảm tốc độ rơi nhẹ
+                } else
+                    rb.gravityScale = setUpGravity;
+
+                if(Input.GetKeyDown(KeyCode.Space) && jumpCount > 0){
+                    Jump();
+                    wallJumpCoolDown = 0;
+                }
+            } else {
+                wallJumpCoolDown += Time.deltaTime;
+            }
+
+            // print(jumpCount);
+            
+            if (isGrounded()) {
+                if (Mathf.Abs(horizontalInput) > 0.01f) {
+                    PlayAnimation(0, "Run", true); // Đang chạy
+                } else {
+                    PlayAnimation(0, "Idle", true); // Đứng yên
+                }
+            } else if (rb.velocity.y > 0.1f) {
+                PlayAnimation(0, "Jump", false); // Đang nhảy lên
+            } else if (rb.velocity.y < -0.1f) {
+                PlayAnimation(0, "Fall", false);
+            } else if (onWall()){
+                PlayAnimation(0, "Climb", true);
+            }
         }
-    }
+    #endregion
 
-    private void ClearTrack(int track){
-        playerAnimation.state.ClearTrack(track);
-    }
+    #region Jump Logic
+        private void Jump(){
+            if (isGrounded() || jumpCount > 0){
+                rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+                jumpCount--;
+            } else if(onWall() && !isGrounded()){
+                if (horizontalInput == 0){
+                    rb.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 25, 0);
+                    transform.localScale = new Vector3(-MathF.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                } else {
+                    rb.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 25);
+                }
+                wallJumpCoolDown = 0;
+            }     
+        }
 
-#endregion
+        private void CheckJumpCount(){
+            if (isGrounded() || onWall()){
+                jumpCount = setUpJumpCount;
+            }
+        }
+        // private void OnCollisionEnter2D (Collision2D collision){
+
+        // }
+
+        private bool isGrounded(){
+            RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+            return raycastHit.collider != null;
+        }
+
+        private bool onWall(){
+            RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.2f, wallLayer);
+            return raycastHit.collider != null;
+        }
+
+    #endregion
+
+    #region Shooting
+        public bool canAttack(){
+            return horizontalInput == 0 && isGrounded() && !onWall();
+        }
+
+    #endregion
+
+    #region Spine Controller
+        public void PlayAnimation(int track, string name, bool loop){
+            if (playerAnimation.AnimationName != name){
+                playerAnimation.state.SetAnimation(track, name, loop);
+            }
+        }
+
+        public void ClearTrack(int track){
+            playerAnimation.state.ClearTrack(track);
+        }
+
+    #endregion
+
 }
