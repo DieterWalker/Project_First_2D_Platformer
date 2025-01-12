@@ -7,18 +7,19 @@ using Spine.Unity;
 public class PlayerController : MonoBehaviour
 {
     // Ok
-    public float horizontalInput;
-    private int jumpCount;
+    
     [SerializeField] private int setUpJumpCount = 2;
     [SerializeField] private float moveSpeed = 1f;
     [SerializeField] private float jumpPower = 1f;
     [SerializeField] private float setUpGravity = 10f; 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField, ReadOnly] private float wallJumpCoolDown; 
+    [SerializeField, ReadOnly] private int jumpCount; 
+    [SerializeField, ReadOnly] private float wallJumpCoolDown;
+    [SerializeField, ReadOnly] public float horizontalInput;
     [SerializeField, ReadOnly] private Rigidbody2D rb;
     [SerializeField, ReadOnly] private CapsuleCollider2D capsuleCollider;
-    [SerializeField, ReadOnly] private SkeletonAnimation playerAnimation;
+    [SerializeField, ReadOnly] private SpineController spineController;
     
 
     #region Unity Method
@@ -26,7 +27,7 @@ public class PlayerController : MonoBehaviour
         private void Awake(){
             rb = GetComponent<Rigidbody2D>();
             capsuleCollider = GetComponent<CapsuleCollider2D>();
-            playerAnimation = GetComponentInChildren<SkeletonAnimation>();
+            spineController = GetComponent<SpineController>();
         }
 
         private void Start(){
@@ -37,53 +38,44 @@ public class PlayerController : MonoBehaviour
         private void Update(){
             CheckJumpCount();
 
-            if (playerAnimation.AnimationName == "Shoot") return;
-
             horizontalInput = Input.GetAxis("Horizontal");
 
-            // Flip player
-            if (horizontalInput > 0.01f) 
-                transform.localScale = Vector3.one;
-            else if (horizontalInput < -0.01f)
-                transform.localScale = new Vector3 (-1, 1, 1);
-
+            Flip();
             if (wallJumpCoolDown < 0.2f ) {
-                rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y);
-
+                // if (!isGrounded() && onWall() && horizontalInput != 0)
+                //     rb.velocity = new Vector2(0, rb.velocity.y); // Ngăn di chuyển ngang
+                // else
+                    rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y); // Di chuyển bình thường
+            
                 if (onWall() && !isGrounded()){
-                    //rb.gravityScale = 0;
-                    //rb.velocity = Vector2.zero;
-                    rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(-10f, rb.velocity.y)); // Giảm tốc độ rơi nhẹ
-                } else
-                    rb.gravityScale = setUpGravity;
+                        //rb.gravityScale = 0;
+                        //rb.velocity = Vector2.zero;
+                        rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(-10f, rb.velocity.y)); // Giảm tốc độ rơi nhẹ
+                    } else
+                        rb.gravityScale = setUpGravity;
 
-                if(Input.GetKeyDown(KeyCode.Space) && jumpCount > 0){
-                    Jump();
-                    wallJumpCoolDown = 0;
-                }
+                    if(Input.GetKeyDown(KeyCode.Space) && jumpCount > 0){
+                        Jump();
+                        wallJumpCoolDown = 0;
+                    }
             } else {
                 wallJumpCoolDown += Time.deltaTime;
             }
 
-            // print(jumpCount);
             
-            if (isGrounded()) {
-                if (Mathf.Abs(horizontalInput) > 0.01f) {
-                    PlayAnimation(0, "Run", true); // Đang chạy
-                } else {
-                    PlayAnimation(0, "Idle", true); // Đứng yên
-                }
-            } else if (rb.velocity.y > 0.1f) {
-                PlayAnimation(0, "Jump", false); // Đang nhảy lên
-            } else if (rb.velocity.y < -0.1f) {
-                PlayAnimation(0, "Fall", false);
-            } else if (onWall()){
-                PlayAnimation(0, "Climb", true);
-            }
+            // print(jumpCount);
+            CheckAnimation();
         }
     #endregion
 
-    #region Jump Logic
+    #region Movement Logic
+        private void Flip(){
+            if (horizontalInput > 0.01f) 
+                transform.localScale = Vector3.one;
+            else if (horizontalInput < -0.01f)
+                transform.localScale = new Vector3 (-1, 1, 1);
+        }
+
         private void Jump(){
             if (isGrounded() || jumpCount > 0){
                 rb.velocity = new Vector2(rb.velocity.x, jumpPower);
@@ -97,16 +89,13 @@ public class PlayerController : MonoBehaviour
                 }
                 wallJumpCoolDown = 0;
             }     
-        }
+        }     
 
         private void CheckJumpCount(){
-            if (isGrounded() || onWall()){
+            if (isGrounded()|| onWall()){
                 jumpCount = setUpJumpCount;
-            }
+            } 
         }
-        // private void OnCollisionEnter2D (Collision2D collision){
-
-        // }
 
         private bool isGrounded(){
             RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
@@ -118,26 +107,34 @@ public class PlayerController : MonoBehaviour
             return raycastHit.collider != null;
         }
 
-    #endregion
-
-    #region Shooting
-        public bool canAttack(){
-            return horizontalInput == 0 && isGrounded() && !onWall();
-        }
-
-    #endregion
-
-    #region Spine Controller
-        public void PlayAnimation(int track, string name, bool loop){
-            if (playerAnimation.AnimationName != name){
-                playerAnimation.state.SetAnimation(track, name, loop);
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.CompareTag("LimitZone"))
+            {
+                Debug.Log("Player đã chạm vào LimitZone!");
+                transform.position = Vector3.zero;
             }
         }
 
-        public void ClearTrack(int track){
-            playerAnimation.state.ClearTrack(track);
-        }
+    #endregion
 
+
+    #region Play Animation
+        private void CheckAnimation(){
+            if (isGrounded()) {
+                if (Mathf.Abs(horizontalInput) > 0.01f) {
+                    spineController.PlayAnimation(0, "Run", true); // Đang chạy
+                } else {
+                    spineController.PlayAnimation(0, "Idle", true); // Đứng yên
+                }
+            } else if (rb.velocity.y > 0.1f) {
+                spineController.PlayAnimation(0, "Jump", false); // Đang nhảy lên
+            } else if (rb.velocity.y < -0.1f) {
+                spineController.PlayAnimation(0, "Fall", false);
+            } else if (onWall()){
+                spineController.PlayAnimation(0, "Climb", false);
+            }
+        }
     #endregion
 
 }

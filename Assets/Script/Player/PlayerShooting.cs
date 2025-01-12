@@ -15,8 +15,8 @@ public class PlayerShooting : MonoBehaviour{
         }
 
         private void Update(){
-            if (Input.GetMouseButton(0) && coolDownTimer > attackCoolDown && playerController.canAttack())
-                Attack();
+            //if (Input.GetMouseButton(0) && coolDownTimer > attackCoolDown && playerController.canAttack())
+           //     Attack();
 
             coolDownTimer += Time.deltaTime;
         }
@@ -26,10 +26,10 @@ public class PlayerShooting : MonoBehaviour{
     #region Shooting Function
         private void Attack(){
             coolDownTimer = 0;
-            print("Shoot");
+            // print("Shoot");
 
             // Chạy animation Shoot
-            playerController.PlayAnimation(0, "Shoot", false);
+            // playerController.PlayAnimation(0, "Shoot", false);
 
             // Sau khi kết thúc animation Shoot, quay lại Idle hoặc Run
             StartCoroutine(ResetAnimation());
@@ -44,9 +44,9 @@ public class PlayerShooting : MonoBehaviour{
 
             // Quay lại trạng thái phù hợp
             if (Mathf.Abs(playerController.horizontalInput) > 0.01f) {
-                playerController.PlayAnimation(0, "Run", true);
+                // playerController.PlayAnimation(0, "Run", true);
             } else {
-                playerController.PlayAnimation(0, "Idle", true);
+                // playerController.PlayAnimation(0, "Idle", true);
             }
         }
 
