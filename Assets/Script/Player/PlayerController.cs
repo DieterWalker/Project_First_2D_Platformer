@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Spine.Unity;
 
-public class PlayerController : MonoBehaviour
-{
-    // Ok
+public class PlayerController : MonoBehaviour{
     
     [SerializeField] private int setUpJumpCount = 2;
     [SerializeField] private float moveSpeed = 1f;

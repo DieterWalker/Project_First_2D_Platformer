@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6244928009824190373}
   - component: {fileID: 1868351879073807849}
-  - component: {fileID: -48658008290312759}
+  - component: {fileID: 6280147534574759215}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -130,9 +130,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1912112db5970c943865e5af8ffa75ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 1
   hasTriggered: 0
---- !u!58 &-48658008290312759
+--- !u!58 &6280147534574759215
 CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -164,6 +163,6 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.05}
   serializedVersion: 2
   m_Radius: 0.5

@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LimitZone
-  - PlayerCharacter
+  - Exp_Collectable
   layers:
   - Default
   - TransparentFX
@@ -17,7 +17,7 @@ TagManager:
   - Ground
   - Wall
   - LimitZone
-  - 
+  - Exp
   - 
   - 
   - 

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StarManager : MonoBehaviour
+public class ExpManager : MonoBehaviour
 {
-    [SerializeField, ReadOnly] public static StarManager instance;
+    [SerializeField, ReadOnly] public static ExpManager instance;
     [SerializeField] private int star;
     [SerializeField] private Text starDisplay;
 
@@ -19,7 +19,7 @@ public class StarManager : MonoBehaviour
         starDisplay.text = star.ToString();
     }
 
-    public void ChangeCoins(int amount){
+    public void ChangeExp(int amount){
         star += amount;
     }
 }
