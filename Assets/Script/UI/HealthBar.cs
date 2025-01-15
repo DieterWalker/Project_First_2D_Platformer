@@ -11,6 +11,9 @@ public class HealthBar : MonoBehaviour
     [SerializeField, ReadOnly] private int currentHealth = 1000;
     [SerializeField, ReadOnly] private int delayHealth = 1000;
     [SerializeField, ReadOnly] private Coroutine backBarCoroutine;
+    
+    [SerializeField, ReadOnly] private Coroutine healthBarCoroutine;
+
 
     #region Unity Method
         private void Awake(){
@@ -20,14 +23,6 @@ public class HealthBar : MonoBehaviour
 
         }
 
-        private void Update(){
-            // if (delayHealth > currentHealth){
-            //     delayHealth -= 1;
-            //     SetHealth(backHealthBar, delayHealth);
-            // } else if (delayHealth < currentHealth){
-            //     delayHealth = currentHealth;
-            // }
-        }
     #endregion
 
     #region HealthBar Manager
@@ -41,37 +36,35 @@ public class HealthBar : MonoBehaviour
         }
     #endregion
 
-    public void TestHealth(int health){
-        currentHealth += health;
-        currentHealth = Mathf.Clamp(currentHealth, 0, 1000); // Giới hạn giá trị từ 0 đến 1000
-        SetHealth(healthBar, currentHealth);
-
-         if (backBarCoroutine != null)
-        {
-            StopCoroutine(backBarCoroutine); // Hủy Coroutine hiện tại nếu có
+    public void TestHealth(int healthChange){
+        currentHealth = Mathf.Clamp(currentHealth + healthChange, 0, 1000);
+        
+        if (healthBarCoroutine != null){
+            StopCoroutine(healthBarCoroutine);
         }
-        backBarCoroutine = StartCoroutine(AnimateBackHealth());
 
-        // if (currentHealth < 0) currentHealth = 0;
-        // else if (currentHealth > 1000) currentHealth = 1000;
-        // SetHealth(healthBar, currentHealth);
+        if (backBarCoroutine != null){
+            StopCoroutine(backBarCoroutine);
+        }
+
+        CheckHealthValue(healthChange);
     }
 
-    private IEnumerator AnimateBackHealth()
-    {
-        while (delayHealth != currentHealth) // Tiếp tục chạy khi delayHealth chưa bằng currentHealth
-        {
-            if (delayHealth > currentHealth){
-                // Giảm dần delayHealth để khớp với currentHealth
-                delayHealth -= Mathf.CeilToInt(speed * Time.deltaTime * 100);
-                delayHealth = Mathf.Max(delayHealth, currentHealth); // Đảm bảo không giảm thấp hơn currentHealth
-            } else if (delayHealth < currentHealth) {
-                // Tăng dần delayHealth để khớp với currentHealth
-                delayHealth += Mathf.CeilToInt(speed * Time.deltaTime * 100);
-                delayHealth = Mathf.Min(delayHealth, currentHealth); // Đảm bảo không vượt quá currentHealth
-            }
-            SetHealth(backHealthBar, delayHealth);
+    private void CheckHealthValue(int healthChange){        
+        if (healthChange > 0){
+            healthBarCoroutine = StartCoroutine(AnimateHealthBar(healthBar, currentHealth));
+            SetHealth(backHealthBar, currentHealth);
+        } else {
+            backBarCoroutine = StartCoroutine(AnimateHealthBar(backHealthBar, currentHealth));
+            SetHealth(healthBar, currentHealth);
+        }
+    }
+
+    private IEnumerator AnimateHealthBar(Slider healthBar, int health){
+        while (Mathf.Abs(healthBar.value - health) > 0.01f){
+            healthBar.value = Mathf.MoveTowards(healthBar.value, health, speed * Time.deltaTime * 100);
             yield return null;
         }
+        healthBar.value = health;
     }
-}
+} 
