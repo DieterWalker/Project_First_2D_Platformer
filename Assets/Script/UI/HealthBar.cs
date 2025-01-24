@@ -8,19 +8,23 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Slider healthBar;
     [SerializeField] private Slider backHealthBar;
     [SerializeField] private float speed = 1f;
+    [SerializeField] private PlayerController playerController;
     [SerializeField, ReadOnly] private int currentHealth = 1000;
-    [SerializeField, ReadOnly] private int delayHealth = 1000;
+
     [SerializeField, ReadOnly] private Coroutine backBarCoroutine;
     
     [SerializeField, ReadOnly] private Coroutine healthBarCoroutine;
+    
 
 
     #region Unity Method
         private void Awake(){
+            currentHealth = playerController.currentHp;
             // slider = GetComponent<Slider>();
-            SetMaxHealth(healthBar ,currentHealth);
-            SetMaxHealth(backHealthBar, currentHealth);
-
+            SetMaxHealth(healthBar ,playerController.hp);
+            SetMaxHealth(backHealthBar, playerController.hp);
+            SetHealth(healthBar ,playerController.currentHp);
+            SetHealth(backHealthBar, playerController.currentHp);
         }
 
     #endregion
