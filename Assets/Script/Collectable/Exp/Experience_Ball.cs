@@ -14,14 +14,19 @@ public class Experience_Ball : MonoBehaviour {
     [SerializeField, ReadOnly] private Vector3 randomDirection;
     [SerializeField, ReadOnly] private Vector3 targetPosition;
     [SerializeField, ReadOnly] private GameObject player;
+    [SerializeField, ReadOnly] private PlayerController playerController;
     [SerializeField, ReadOnly] private ExpManager expManager;
+    [SerializeField, ReadOnly] private HealthBar healthBar;
     [SerializeField, ReadOnly] private TrailRenderer trailRenderer;
     
     #region Unity Methodd
 
         private void Awake(){
             player = GameObject.FindGameObjectWithTag("Player");
+            GameObject healthBarObject = GameObject.FindGameObjectWithTag("HealthBar");
+            healthBar = healthBarObject.GetComponent<HealthBar>();
             trailRenderer = GetComponent<TrailRenderer>();
+            playerController = player.GetComponent<PlayerController>();
         }
 
         public void Initialize(Transform playerTransform){
@@ -79,6 +84,8 @@ public class Experience_Ball : MonoBehaviour {
             if  (Vector3.Distance(transform.position, targetPosition) < 0.1f){
                 expManager.ChangeExp(value);
                 gameObject.SetActive(false);
+                playerController.currentHp = Mathf.Clamp(playerController.currentHp + 10, 0, playerController.hp);
+                healthBar.TestHealth(10);
                 
                 SetUpCollectable();
             }

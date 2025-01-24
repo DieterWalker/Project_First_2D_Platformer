@@ -6,18 +6,23 @@ using Spine.Unity;
 
 public class PlayerController : MonoBehaviour{
     
-    [SerializeField] private int setUpJumpCount = 2;
-    [SerializeField] private float moveSpeed = 1f;
+    // [SerializeField, ReadOnly] private int setUpJumpCount = 2;
+    [SerializeField, ReadOnly] private float moveSpeed;
+    [SerializeField, ReadOnly] public int hp;
+    [SerializeField, ReadOnly] public int currentHp;
     [SerializeField] private float jumpPower = 1f;
     [SerializeField] private float setUpGravity = 10f; 
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+    // [SerializeField] private HealthBar healthBar;
     [SerializeField, ReadOnly] private int jumpCount; 
     [SerializeField, ReadOnly] private float wallJumpCoolDown;
     [SerializeField, ReadOnly] public float horizontalInput;
     [SerializeField, ReadOnly] private Rigidbody2D rb;
     [SerializeField, ReadOnly] private CapsuleCollider2D capsuleCollider;
+    [SerializeField, ReadOnly] private PlayerStat playerStat;
     [SerializeField, ReadOnly] private SpineController spineController;
+    [SerializeField, ReadOnly] private HealthBar healthBar;
     
 
     #region Unity Method
@@ -26,11 +31,19 @@ public class PlayerController : MonoBehaviour{
             rb = GetComponent<Rigidbody2D>();
             capsuleCollider = GetComponent<CapsuleCollider2D>();
             spineController = GetComponent<SpineController>();
+            playerStat = GetComponent<PlayerStat>();
+            
+            jumpCount = playerStat.getJump();
+            moveSpeed = playerStat.getSpeed();
+            hp = playerStat.getHP();
+            currentHp = hp / 2;
+
+            GameObject healthBarObject = GameObject.FindGameObjectWithTag("HealthBar");
+            healthBar = healthBarObject.GetComponent<HealthBar>();
         }
 
         private void Start(){
             rb.gravityScale = setUpGravity;
-            jumpCount = setUpJumpCount;
         }
 
         private void Update(){
@@ -91,7 +104,7 @@ public class PlayerController : MonoBehaviour{
 
         private void CheckJumpCount(){
             if (isGrounded()|| onWall()){
-                jumpCount = setUpJumpCount;
+                jumpCount = playerStat.getJump();
             } 
         }
 
@@ -111,6 +124,8 @@ public class PlayerController : MonoBehaviour{
             {
                 Debug.Log("Player đã chạm vào LimitZone!");
                 transform.position = Vector3.zero;
+                healthBar.TestHealth(-currentHp);
+                currentHp = 0;
             }
         }
 
