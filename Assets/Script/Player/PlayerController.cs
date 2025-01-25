@@ -125,6 +125,7 @@ public class PlayerController : MonoBehaviour{
                 Debug.Log("Player đã chạm vào LimitZone!");
                 transform.position = Vector3.zero;
                 healthBar.TestHealth(-currentHp);
+                
                 currentHp = 0;
             }
         }
