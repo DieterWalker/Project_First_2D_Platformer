@@ -6,6 +6,7 @@ TagManager:
   tags:
   - LimitZone
   - Exp_Collectable
+  - HealthBar
   layers:
   - Default
   - TransparentFX
