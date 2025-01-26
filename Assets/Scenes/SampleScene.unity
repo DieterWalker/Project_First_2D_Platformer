@@ -2867,11 +2867,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 683762314}
+  - component: {fileID: 683762310}
   - component: {fileID: 683762313}
   - component: {fileID: 683762312}
   - component: {fileID: 683762311}
-  - component: {fileID: 683762310}
   - component: {fileID: 683762317}
+  - component: {fileID: 683762318}
   - component: {fileID: 683762316}
   - component: {fileID: 683762315}
   m_Layer: 0
@@ -3041,6 +3042,18 @@ MonoBehaviour:
   moveSpeed: 10
   jumpPower: 25
   jumpCount: 2
+--- !u!114 &683762318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683762309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b951098b71a813144ba799a53b61034b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &708347260
 PrefabInstance:
   m_ObjectHideFlags: 0

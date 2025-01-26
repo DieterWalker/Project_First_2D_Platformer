@@ -14,7 +14,7 @@ public class Experience_Ball : MonoBehaviour {
     [SerializeField, ReadOnly] private Vector3 randomDirection;
     [SerializeField, ReadOnly] private Vector3 targetPosition;
     [SerializeField, ReadOnly] private GameObject player;
-    [SerializeField, ReadOnly] private PlayerController playerController;
+    // [SerializeField, ReadOnly] private PlayerController playerController;
     [SerializeField, ReadOnly] private ExpManager expManager;
     // [SerializeField, ReadOnly] private HealthBar healthBar;
     [SerializeField, ReadOnly] private TrailRenderer trailRenderer;
@@ -26,7 +26,7 @@ public class Experience_Ball : MonoBehaviour {
             // GameObject healthBarObject = GameObject.FindGameObjectWithTag("HealthBar");
             // healthBar = healthBarObject.GetComponent<HealthBar>();
             trailRenderer = GetComponent<TrailRenderer>();
-            playerController = player.GetComponent<PlayerController>();
+            // playerController = player.GetComponent<PlayerController>();
         }
 
         public void Initialize(Transform playerTransform){

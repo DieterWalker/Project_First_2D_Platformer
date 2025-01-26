@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class New_PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField, ReadOnly] private SpineController spineController;
 
