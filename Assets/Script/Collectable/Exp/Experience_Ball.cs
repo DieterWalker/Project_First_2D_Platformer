@@ -5,7 +5,7 @@ using UnityEngine;
 public class Experience_Ball : MonoBehaviour {
     [SerializeField] private int value;
      [SerializeField] private float minSpeed = 5f;
-    [SerializeField] private float maxSpeed = 20f;
+    [SerializeField] private float maxSpeed = 50f;
     [SerializeField] private float randomMovingTime = 3f;
     
     // [SerializeField, ReadOnly] private bool isSleep;
@@ -16,15 +16,15 @@ public class Experience_Ball : MonoBehaviour {
     [SerializeField, ReadOnly] private GameObject player;
     [SerializeField, ReadOnly] private PlayerController playerController;
     [SerializeField, ReadOnly] private ExpManager expManager;
-    [SerializeField, ReadOnly] private HealthBar healthBar;
+    // [SerializeField, ReadOnly] private HealthBar healthBar;
     [SerializeField, ReadOnly] private TrailRenderer trailRenderer;
     
     #region Unity Methodd
 
         private void Awake(){
             player = GameObject.FindGameObjectWithTag("Player");
-            GameObject healthBarObject = GameObject.FindGameObjectWithTag("HealthBar");
-            healthBar = healthBarObject.GetComponent<HealthBar>();
+            // GameObject healthBarObject = GameObject.FindGameObjectWithTag("HealthBar");
+            // healthBar = healthBarObject.GetComponent<HealthBar>();
             trailRenderer = GetComponent<TrailRenderer>();
             playerController = player.GetComponent<PlayerController>();
         }
@@ -60,7 +60,7 @@ public class Experience_Ball : MonoBehaviour {
     #region Collectable Moving
         private void InsertSpeed(){
             if (speed <= maxSpeed){
-                speed += 0.05f;
+                speed += 0.1f;
             }
         }
 
@@ -84,8 +84,8 @@ public class Experience_Ball : MonoBehaviour {
             if  (Vector3.Distance(transform.position, targetPosition) < 0.1f){
                 expManager.ChangeExp(value);
                 gameObject.SetActive(false);
-                playerController.currentHp = Mathf.Clamp(playerController.currentHp + 10, 0, playerController.hp);
-                healthBar.TestHealth(10);
+                // playerController.currentHp = Mathf.Clamp(playerController.currentHp + 10, 0, playerController.hp);
+                // healthBar.TestHealth(10);
                 
                 SetUpCollectable();
             }

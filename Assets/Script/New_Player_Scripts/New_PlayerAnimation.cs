@@ -20,7 +20,7 @@ public class New_PlayerAnimation : MonoBehaviour
                 } else {
                     spineController.PlayAnimation(0, "Idle", true); // Đứng yên
                 }
-            } if (rb.velocity.y > 0.1f) {
+            } else if (rb.velocity.y > 0.1f) {
                 spineController.PlayAnimation(0, "Jump", false); // Đang nhảy lên
             } else if (rb.velocity.y < -0.1f) {
                 spineController.PlayAnimation(0, "Fall", false);
