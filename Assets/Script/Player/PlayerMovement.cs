@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class New_PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
@@ -57,5 +57,41 @@ public class New_PlayerMovement : MonoBehaviour
         }
     #endregion
 
+    // Climb 
+    // private void Jump(){
+    //     if (isGrounded() || jumpCount > 0){
+    //         rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+    //         jumpCount--;
+    //     } else if(onWall() && !isGrounded()){
+    //         if (horizontalInput == 0){
+    //             rb.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 25, 0);
+    //             transform.localScale = new Vector3(-MathF.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+    //         } else {
+    //             rb.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 25);
+    //         }
+    //         wallJumpCoolDown = 0;
+    //     }     
+    // }    
+
+    // if (wallJumpCoolDown < 0.2f ) {
+    //             // if (!isGrounded() && onWall() && horizontalInput != 0)
+    //             //     rb.velocity = new Vector2(0, rb.velocity.y); // Ngăn di chuyển ngang
+    //             // else
+    //                 rb.velocity = new Vector2(horizontalInput * moveSpeed, rb.velocity.y); // Di chuyển bình thường
+            
+    //             if (onWall() && !isGrounded()){
+    //                     //rb.gravityScale = 0;
+    //                     //rb.velocity = Vector2.zero;
+    //                     rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(-10f, rb.velocity.y)); // Giảm tốc độ rơi nhẹ
+    //                 } else
+    //                     rb.gravityScale = setUpGravity;
+
+    //                 if(Input.GetKeyDown(KeyCode.Space) && jumpCount > 0){
+    //                     Jump();
+    //                     wallJumpCoolDown = 0;
+    //                 }
+    //         } else {
+    //             wallJumpCoolDown += Time.deltaTime;
+    //         } 
 
 }
