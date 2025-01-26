@@ -6,12 +6,15 @@ public class New_PlayerMovement : MonoBehaviour
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
-    // #region Unity Method
-    //     private void Awake(){
-    //         // rb = GetComponent<Rigidbody2D>();  
-    //         capsuleCollider = GetComponent<CapsuleCollider2D>();
-    //     }
-    // #endregion
+    [SerializeField, ReadOnly] private int tempJumpCount; 
+    
+    public void Initialize (int jumpCount){
+        tempJumpCount = jumpCount;
+    }
+
+    #region Unity Method
+    
+    #endregion
 
     #region Movement Method
         public void FlipPlayer(float horizontalInput){
@@ -29,14 +32,22 @@ public class New_PlayerMovement : MonoBehaviour
 
     #region Jump Method
         public void JumpPlayer(Rigidbody2D rb, float jumpPower){
-            
-            rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+            if (tempJumpCount > 0){
+                rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+                tempJumpCount--;
+            }
+        }
+
+        public void CheckJumpCount (int jumpCount, CapsuleCollider2D capsuleCollider){
+            if (IsGrounded(capsuleCollider)){
+                tempJumpCount = jumpCount;
+            }
         }
     #endregion
 
     #region CheckLayer
         public bool IsGrounded(CapsuleCollider2D capsuleCollider){
-            RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
+            RaycastHit2D raycastHit = Physics2D.BoxCast(capsuleCollider.bounds.center, capsuleCollider.bounds.size, 0, Vector2.down, 0.2f, groundLayer);
             return raycastHit.collider != null;
         }
 
@@ -45,4 +56,6 @@ public class New_PlayerMovement : MonoBehaviour
             return raycastHit.collider != null;
         }
     #endregion
+
+
 }
