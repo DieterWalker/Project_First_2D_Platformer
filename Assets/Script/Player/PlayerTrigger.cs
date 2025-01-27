@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class PlayerTrigger : MonoBehaviour
 {
+    [SerializeField, ReadOnly] private PlayerController playerController;
     #region Unity Method
-
+        public void Initialize(){
+            playerController = GetComponent<PlayerController>();
+        }
     #endregion
 
     #region OnTrigger Method
@@ -15,7 +18,7 @@ public class PlayerTrigger : MonoBehaviour
             {
                 Debug.Log("Player đã chạm vào LimitZone!");
                 transform.position = Vector3.zero;
-                
+                playerController.TakeDamage(playerController.playerStat.Hp);
             }
         }
     #endregion
