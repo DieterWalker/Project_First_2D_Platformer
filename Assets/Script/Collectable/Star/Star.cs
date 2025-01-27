@@ -18,8 +18,8 @@ public class Star : MonoBehaviour{
                 // Call Object Pool in here
                 GameObject experience_Ball = Experience_Object_Pool.instance.GetPooledObject();
                 experience_Ball.transform.position = transform.position;
-                Experience_Ball experience_Ball_Script = experience_Ball.GetComponent<Experience_Ball>();
-                experience_Ball_Script.Initialize(collision.transform);
+                FlyBallController experience_Ball_Script = experience_Ball.GetComponent<FlyBallController>();
+                experience_Ball_Script.Initialize();
             }
 
 

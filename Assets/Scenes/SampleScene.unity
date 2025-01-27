@@ -2738,7 +2738,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003f83083888d5348b0b0bd1f418e66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleExpPrefab: {fileID: 5430449720813301332, guid: df05dd1d6c639124fb93bed3d0ef7e59, type: 3}
+  circleExpPrefab: {fileID: 2326983300143436, guid: 9e7ff9fb7aa299e4686613291d74e582, type: 3}
   expPoolParent: {fileID: 494427788}
   initialPoolSize: 5
   pool: []
@@ -3621,7 +3621,7 @@ GameObject:
   - component: {fileID: 683762316}
   - component: {fileID: 683762315}
   m_Layer: 0
-  m_Name: New_SystemPlayer
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3800,6 +3800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b951098b71a813144ba799a53b61034b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
 --- !u!114 &683762319
 MonoBehaviour:
   m_ObjectHideFlags: 0

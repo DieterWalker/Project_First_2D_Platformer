@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour{
     [SerializeField, ReadOnly] public float horizontalInput;
     [SerializeField, ReadOnly] private PlayerAnimation playerAnimation;
     [SerializeField, ReadOnly] private PlayerMovement playerMovement;
-    [SerializeField, ReadOnly] private PlayerStat playerStat;
+    [SerializeField, ReadOnly] public PlayerStat playerStat;
     [SerializeField, ReadOnly] private PlayerTrigger playerTrigger;
     [SerializeField, ReadOnly] private PlayerHealth playerHealth;
     [SerializeField, ReadOnly] private Rigidbody2D rb;
@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour{
             playerHealth = GetComponent<PlayerHealth>();
 
             playerAnimation.Initialize();
+            playerTrigger.Initialize();
             playerMovement.Initialize(playerStat.JumpCount);
             playerHealth.Initialize(playerStat.Hp);
 
