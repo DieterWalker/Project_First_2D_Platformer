@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class New_PlayerController : MonoBehaviour{
+public class PlayerController : MonoBehaviour{
     [SerializeField, ReadOnly] public float horizontalInput;
     [SerializeField, ReadOnly] private PlayerAnimation playerAnimation;
     [SerializeField, ReadOnly] private PlayerMovement playerMovement;
     [SerializeField, ReadOnly] private PlayerStat playerStat;
     [SerializeField, ReadOnly] private PlayerTrigger playerTrigger;
+    [SerializeField, ReadOnly] private PlayerHealth playerHealth;
     [SerializeField, ReadOnly] private Rigidbody2D rb;
     [SerializeField, ReadOnly] private CapsuleCollider2D capsuleCollider;      
 
@@ -17,8 +18,11 @@ public class New_PlayerController : MonoBehaviour{
             playerMovement = GetComponent<PlayerMovement>();
             playerStat = GetComponent<PlayerStat>(); 
             playerTrigger = GetComponent<PlayerTrigger>();
+            playerHealth = GetComponent<PlayerHealth>();
 
+            playerAnimation.Initialize();
             playerMovement.Initialize(playerStat.JumpCount);
+            playerHealth.Initialize(playerStat.Hp);
 
             rb = GetComponent<Rigidbody2D>();
             capsuleCollider = GetComponent<CapsuleCollider2D>();
@@ -42,6 +46,16 @@ public class New_PlayerController : MonoBehaviour{
             }
 
             playerAnimation.CheckAnimation(rb, horizontalInput, playerMovement.IsGrounded(capsuleCollider));
+        }
+    #endregion
+
+    #region Heal Controller
+        public void TakeDamage(int damage){
+            playerHealth.TakeDamage(playerStat.Hp, damage);
+        }
+
+        public void Heal(int heal){
+            playerHealth.Heal(playerStat.Hp, heal);
         }
     #endregion
 }

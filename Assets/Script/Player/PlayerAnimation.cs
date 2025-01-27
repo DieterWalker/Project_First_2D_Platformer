@@ -7,7 +7,7 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField, ReadOnly] private SpineController spineController;
 
     #region Unity Method
-        private void Awake(){
+        public void Initialize(){
             spineController = GetComponent<SpineController>();
         }
     #endregion
