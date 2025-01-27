@@ -15,6 +15,7 @@ public class PlayerTrigger : MonoBehaviour
             {
                 Debug.Log("Player đã chạm vào LimitZone!");
                 transform.position = Vector3.zero;
+                
             }
         }
     #endregion
