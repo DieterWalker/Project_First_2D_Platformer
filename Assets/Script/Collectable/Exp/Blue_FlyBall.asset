@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbbb361a291c30b49ba2058a7f5a29f7, type: 3}
   m_Name: Blue_FlyBall
   m_EditorClassIdentifier: 
-  healValue: 2
+  healValue: 5
   expValue: 5
