@@ -2738,10 +2738,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003f83083888d5348b0b0bd1f418e66a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleExpPrefab: {fileID: 2326983300143436, guid: 9e7ff9fb7aa299e4686613291d74e582, type: 3}
+  prefabs:
+  - {fileID: 2326983300143436, guid: 9e7ff9fb7aa299e4686613291d74e582, type: 3}
+  - {fileID: 2326983300143436, guid: 23bb08edc11b13744a58eb00332ede38, type: 3}
+  - {fileID: 2326983300143436, guid: 16d27032158df6f4aa2c6ff2263ab38c, type: 3}
   expPoolParent: {fileID: 494427788}
   initialPoolSize: 5
-  pool: []
 --- !u!4 &494427788
 Transform:
   m_ObjectHideFlags: 0

@@ -130,6 +130,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1912112db5970c943865e5af8ffa75ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expGain: 5
+  flyBallTypes:
+  - White_Ball
+  - Blue_Ball
+  - Purple_Ball
+  flyBallWeights: 590000000a00000001000000
   hasTriggered: 0
 --- !u!58 &6280147534574759215
 CircleCollider2D:
