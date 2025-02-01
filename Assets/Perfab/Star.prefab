@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6244928009824190373}
   - component: {fileID: 1868351879073807849}
+  - component: {fileID: 2407618826274814617}
   - component: {fileID: 6280147534574759215}
   m_Layer: 0
   m_Name: Star
@@ -131,12 +132,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   expGain: 5
+  hasTriggered: 0
+  getRandomFlyBall: {fileID: 0}
+--- !u!114 &2407618826274814617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5312334639191976359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56fb6eef298873b4f8f44e849baa012a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   flyBallTypes:
   - White_Ball
   - Blue_Ball
   - Purple_Ball
-  flyBallWeights: 590000000a00000001000000
-  hasTriggered: 0
+  - Red_Ball
+  - Green_Ball
+  flyBallWeights: 0500000005000000050000000100000001000000
 --- !u!58 &6280147534574759215
 CircleCollider2D:
   m_ObjectHideFlags: 0
