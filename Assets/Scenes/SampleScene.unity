@@ -2742,8 +2742,9 @@ MonoBehaviour:
   - {fileID: 2326983300143436, guid: 9e7ff9fb7aa299e4686613291d74e582, type: 3}
   - {fileID: 2326983300143436, guid: 23bb08edc11b13744a58eb00332ede38, type: 3}
   - {fileID: 2326983300143436, guid: 16d27032158df6f4aa2c6ff2263ab38c, type: 3}
+  - {fileID: 2326983300143436, guid: 462ebc5d579ace24290afae5b65c57d1, type: 3}
+  - {fileID: 2326983300143436, guid: f43a559db163c2548b1568273dc2a032, type: 3}
   expPoolParent: {fileID: 494427788}
-  initialPoolSize: 5
 --- !u!4 &494427788
 Transform:
   m_ObjectHideFlags: 0

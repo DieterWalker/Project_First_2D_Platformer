@@ -60,9 +60,8 @@ public class Experience_Object_Pool : MonoBehaviour
 {
     public static Experience_Object_Pool instance;
 
-    [SerializeField] private List<GameObject> prefabs; // Danh sách các prefab khác nhau
+    [SerializeField] private List<GameObject> prefabs;
     [SerializeField] private Transform expPoolParent;
-    [SerializeField] private int initialPoolSize = 5;
 
     private Dictionary<string, List<GameObject>> pools = new Dictionary<string, List<GameObject>>();
 
@@ -79,19 +78,11 @@ public class Experience_Object_Pool : MonoBehaviour
             if (!pools.ContainsKey(key))
             {
                 pools[key] = new List<GameObject>();
-                for (int i = 0; i < initialPoolSize; i++)
-                {
-                    GameObject obj = Instantiate(prefab);
-                    obj.SetActive(false);
-                    obj.transform.SetParent(expPoolParent);
-                    pools[key].Add(obj);
-                }
             }
         }
     }
 
-    public GameObject GetPooledObject(string prefabName)
-    {
+    public GameObject GetPooledObject(string prefabName){
         if (pools.ContainsKey(prefabName))
         {
             foreach (GameObject obj in pools[prefabName])
