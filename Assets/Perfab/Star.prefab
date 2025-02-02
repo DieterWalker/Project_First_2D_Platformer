@@ -146,13 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56fb6eef298873b4f8f44e849baa012a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyBallTypes:
-  - White_Ball
-  - Blue_Ball
-  - Purple_Ball
-  - Red_Ball
-  - Green_Ball
-  flyBallWeights: 0500000005000000050000000100000001000000
+  expDropData: {fileID: 11400000, guid: 90809b3aa0439b34288d8b35b06c8345, type: 2}
 --- !u!58 &6280147534574759215
 CircleCollider2D:
   m_ObjectHideFlags: 0
