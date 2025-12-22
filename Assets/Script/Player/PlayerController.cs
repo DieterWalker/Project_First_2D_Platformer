@@ -37,6 +37,10 @@ public class PlayerController : MonoBehaviour{
             playerMovement.FlipPlayer(horizontalInput);
             playerMovement.MovePlayer(rb, horizontalInput, playerStat.MoveSpeed);
 
+            if (playerMovement.isDashing){
+                return;
+            }
+
             if (playerMovement.OnWall(capsuleCollider) && !playerMovement.IsGrounded(capsuleCollider) && horizontalInput != 0)
                 // if (!isGrounded() && onWall() && horizontalInput != 0)
                 rb.velocity = new Vector2(0, rb.velocity.y); // Ngăn di chuyển ngang
@@ -45,6 +49,9 @@ public class PlayerController : MonoBehaviour{
             if(Input.GetKeyDown(KeyCode.W)){
                 playerMovement.JumpPlayer(rb, playerStat.JumpPower);
             }
+
+            if (Input.GetKey(KeyCode.LeftShift) && playerMovement.canDash)
+                StartCoroutine(playerMovement.DashPlayer(rb, playerStat.DashPower, playerStat.DashTime));
 
             playerAnimation.CheckAnimation(rb, horizontalInput, playerMovement.IsGrounded(capsuleCollider));
         }
