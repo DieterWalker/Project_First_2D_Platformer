@@ -11,6 +11,9 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] private float moveSpeed = 10f;
     [SerializeField] private float jumpPower = 25f;
     [SerializeField] private int jumpCount = 2;
+    [SerializeField] private float dashPower = 24f;
+    [SerializeField] private float dashTime = 0.0000001f;
+
     #region Unity Method
     #endregion
     
@@ -37,6 +40,14 @@ public class PlayerStat : MonoBehaviour
 
         public int JumpCount {
             get{return jumpCount;}
+        }
+
+        public float DashPower {
+            get{return dashPower;}
+        }
+
+        public float DashTime {
+            get{return dashTime;}
         }
     #endregion
 }

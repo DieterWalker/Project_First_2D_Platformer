@@ -8,12 +8,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private LayerMask wallLayer;
     [SerializeField, ReadOnly] private int tempJumpCount; 
     
-    public void Initialize (int jumpCount){
-        tempJumpCount = jumpCount;
-    }
+    [SerializeField, ReadOnly] public bool isDashing = false;
+    [SerializeField, ReadOnly] public bool canDash = true;
 
     #region Unity Method
-    
+        public void Initialize (int jumpCount){
+            tempJumpCount = jumpCount;
+        }
     #endregion
 
     #region Movement Method
@@ -42,6 +43,20 @@ public class PlayerMovement : MonoBehaviour
             if (IsGrounded(capsuleCollider)){
                 tempJumpCount = jumpCount;
             }
+        }
+    #endregion
+
+    #region Dash Method
+        public IEnumerator DashPlayer(Rigidbody2D rb, float dashPower, float dashTime){
+            canDash = false;
+            isDashing = true;
+            float originalGravity = rb.gravityScale;
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(transform.localScale.x * dashPower, 0f);
+            yield return new WaitForSeconds(dashTime);
+            rb.gravityScale = originalGravity;
+            isDashing = false;
+            canDash = true;
         }
     #endregion
 

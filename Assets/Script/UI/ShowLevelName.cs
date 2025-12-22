@@ -9,7 +9,7 @@ public class ShowLevelName : MonoBehaviour
     [SerializeField] private Text subLevelTitle;
     [SerializeField] private string title;
     [SerializeField] private string subTitle;
-    [SerializeField] private float moveDuration = 0.25f;
+    [SerializeField] private float moveDuration = 0.1f;
 
     [SerializeField, ReadOnly] private Vector3 startPos;
     [SerializeField, ReadOnly] private Vector3 endPos;
